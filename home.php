@@ -1,42 +1,7 @@
 <?php
-  require ('members/connect.inc.php');
-  if ($_POST) {
-    $error = 0;
-    $rtfname = strtolower($_POST['rtfname']);
-    $sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '$rtfname'";
-    if(!$result = $db->query($sql)){
-      die('There was an error running the query [' . $db->error . ']');
-    }
-    if ($result->num_rows == 0) {
-      $error = 1;
-      header('Location: login.php?error=2');
-    }
-    else{
-      $psword = md5(sha1($_POST['psword']));
-      $sql = "SELECT * FROM `tb_membersinrtf` WHERE `col_rtfname` = '$rtfname'";
-      if(!$result = $db->query($sql)){
-        die('There was an error running the query [' . $db->error . ']');
-      }
-      if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-          $realpassword = $row['col_psword'];
-          $member = $row['col_rtfname'];
-        }
-      }
-      if ($psword != $realpassword) {
-        $error = 1;
-        header('Location: login.php?error=1');
-      }
-      if ($error == 0) {
-        session_start();
-        $_SESSION['member'] = $member;
-        header('Location: home.php');
-      }
-    }
-  }
-
+  session_start();
+  if (!$_SESSION['member']) header('Location: login.php');
 ?>
-
 <!doctype html>
 <html>
 
@@ -88,12 +53,12 @@
                 <div class="cp-top-bar">
                   <div class="login-section">
                     <ul>
-                      <li><a href="login.php"><i class="fa fa-sign-in"></i>Log in <b>/</b></a></li>
-                      <li><a href="signup.php"> Sign up</a></li>
+                      <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
+                      <li><a href="#"><span></span><img src="images/author.jpg"</a></li>
                     </ul>
                   </div>
                 </div>
-                <strong class="logo-2"><a href="index.html"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
+                <strong class="logo-2"><a href="index.html" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
                 <form action="#">
                   <input type="text" placeholder="Search photos" required>
                   <button><span class="icon-icons-06"></span></button>
@@ -145,11 +110,11 @@
           </div>
           <div class="login-section">
             <ul>
-            <li><a href="login.php"><i class="fa fa-sign-out"></i>Log in <b>/</b></a></li>
-            <li><a href="signup.php"> Sign up</a></li>
-          </ul>
+              <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
+              <li><a href="#"><span></span><img src="images/author.jpg"</a></li>
+            </ul>
         </div>
-        <div class="container"> <strong class="logo"><a href="index.html"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
+        <div class="container"> <strong class="logo"><a href="index.html" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
       </section>
       <section class="cp-navigation-row">
         <div class="container">
@@ -159,91 +124,8 @@
             </div>
             <div id="navbar-collapse-1" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="error-page.html">Cover Photos</a></li>
-                <li><a href="error-page.html">Latests</a></li>
-                <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Categories<b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <div class="yamm-content">
-                        <div class="row">
-                          <ul class="col-sm-3 list-unstyled">
-                            <li>
-                              <h4>Birthdays</h4>
-                            </li>
-                            <li> <a href="error-page.html">January</a> </li>
-                            <li> <a href="error-page.html">February</a> </li>
-                            <li> <a href="error-page.html">March</a> </li>
-                            <li> <a href="error-page.html">April</a> </li>
-                            <li> <a href="error-page.html">May</a> </li>
-                            <li> <a href="error-page.html">June</a> </li>
-                            <li> <a href="error-page.html">July</a> </li>
-                            <li> <a href="error-page.html">August</a> </li>
-                            <li> <a href="error-page.html">September</a> </li>
-                            <li> <a href="error-page.html">October</a> </li>
-                            <li> <a href="error-page.html">November</a> </li>
-                            <li> <a href="error-page.html">December</a> </li>
-                          </ul>
-                          <ul class="col-sm-3 list-unstyled">
-                            <li>
-                              <h4>Fellowship after Fellowship</h4>
-                            </li>
-                            <li> <a href="error-page.html">Photos</a> </li>
-                            <li> <a href="error-page.html">Lessons</a> </li>
-                            <li> <a href="error-page.html">Meetups</a> </li>
-                          </ul>
-                          <ul class="col-sm-3 list-unstyled">
-                            <li>
-                              <h4>Unit Meeting</h4>
-                            </li>
-                            <li> <a href="error-page.html">Notes</a> </li>
-                            <li> <a href="error-page.html">Prayers</a> </li>
-                          </ul>
-                          <ul class="col-sm-3 list-unstyled">
-                            <li>
-                              <h4>Revelation Night</h4>
-                            </li>
-                            <li> <a href="error-page.html">2015</a> </li>
-                            <li> <a href="error-page.html">2016</a> </li>
-                            <li> <a href="error-page.html">2017</a> </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Photo Speaks<b class="caret"></b></a>
-                  <ul role="menu" class="dropdown-menu classic-menu">
-                    <li><a tabindex="-1" href="error-page.html">Album One</a></li>
-                    <li><a tabindex="-1" href="error-page.html">Album Two</a></li>
-                    <li><a tabindex="-1" href="error-page.html">Album Three</a></li>
-                    <li><a tabindex="-1" href="error-page.html">Members Profile</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pages<b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <div class="yamm-content">
-                        <div class="row">
-                          <ul class="col-sm-3 list-unstyled">
-                            <li> <a href="error-page.html">Royal 7</a> </li>
-                            <li> <a href="error-page.html">Alumni</a> </li>
-                            <li> <a href="error-page.html">Events</a> </li>
-                          </ul>
-                          <ul class="col-sm-3 list-unstyled">
-                            <li> <a href="error-page.html">Join the Family</a> </li>
-                          </ul>
-                          <ul class="col-sm-3 list-unstyled">
-                            <li> <a href="error-page.html">About us</a> </li>
-                          </ul>
-                          <ul class="col-sm-3 list-unstyled">
-                            <li> <a href="error-page.html">Contact Us</a> </li>
-                            <li> <a href="error-page.html">Contact 2</a> </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
+                <li class="active"><a href="home.php">Home</a></li>
+                <li><a href="member.php">Profile</a></li>
                 <li>
                   <div class="cp-search-box"><a href="#" id="searchtoggl"><span class="icon-icons-06"></span></a></div>
                 </li>
@@ -263,44 +145,69 @@
       </div>
     </div>
 
-    <section class="cp-inner-banner">
-      <h1>Start Uploading</h1>
-      <div class="breadcrumb">
-        <li><a>Royal Theatre Family...</a></li>
+    <section class="category-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="cp-box">
+              <h2>Browse Images by Member Profiles</h2>
+              <div class="row">
+                <div class="col-md-4">
+                  <ul>
+                    <li><a href="#">Member 1</a></li>
+                    <li><a href="#">Member 2</a></li>
+                    <li><a href="#">member 3</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <ul>
+                    <li><a href="#">member 4</a></li>
+                    <li><a href="#">member 5</a></li>
+                    <li><a href="#">member 6</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <ul>
+                    <li><a href="#">Member 7</a></li>
+                    <li><a href="#">Member 8</a></li>
+                    <li><a href="#">Member 9</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="cp-box">
+              <h2>Browse Images by Events</h2>
+              <div class="row">
+                <div class="col-md-4">
+                  <ul>
+                    <li><a href="#">Event 1</a></li>
+                    <li><a href="#">Event 2</a></li>
+                    <li><a href="#">Event 3</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <ul>
+                    <li><a href="#">Event 4</a></li>
+                    <li><a href="#">Event 5</a></li>
+                    <li><a href="#">Event 6</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <ul>
+                    <li><a href="#">Event 1</a></li>
+                    <li><a href="#">Event 2</a></li>
+                    <li><a href="#">Event 3</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <div id="main">
-      <section class="cp-login cp-register tb-50">
-        <div class="container">
-          <div class="holder">
-            <form action="login.php" method="POST">
-              <div class="row">
-                <div class="col-md-12">
-                  <span>
-                    <?php
-                      if(isset($_GET['error']) && $_GET['error'] == 1) echo '<span class="btn btn-danger">Password is incorrect</span></br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 2) echo '<span class="btn btn-danger">Username Name not found!!!</span></br>';
-                    ?>
-                  </span>
-                </div>
-                <div class="col-md-6">
-                  <input type="text" name="rtfname" placeholder="RTF Name *" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="password" name="psword" placeholder="Password *" required>
-                </div>
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6">
-                  <input type="submit" value="Login To Profile">
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </div>
     <footer id="footer">
       <div class="footer-social">
         <div class="cp-sidebar-social"> <strong class="title">Connect us on</strong>
