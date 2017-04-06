@@ -17,6 +17,18 @@
       $ftname = $_POST['ftname'];
       $ltname = $_POST['ltname'];
       $yrphn = $_POST['yrphn'];
+      $sql = "SELECT * FROM `tb_membersinrtf` WHERE `col_rtfname` = '$rtfname'";
+      if(!$result = $db->query($sql)){
+        die('There was an error running the query [' . $db->error . ']');
+      }
+      if ($result->num_rows > 0) {
+        $error = 1;
+        header('Location: signup.php?error=5');
+      }
+      if (!isset($_POST['ckbox'])) {
+        $error = 1;
+        header('Location: signup.php?error=3');
+      }
       if (strlen($psword) < 6){
         $error = 1;
         header('Location: signup.php?error=4');
@@ -95,7 +107,7 @@
                 <div class="cp-top-bar">
                   <div class="login-section">
                     <ul>
-                      <li><a href="error-page.html"><i class="fa fa-sign-out"></i>Log in <b>/</b></a></li>
+                      <li><a href="login.php"><i class="fa fa-sign-in"></i>Log in <b>/</b></a></li>
                       <li><a href="signup.php"> Sign up</a></li>
                     </ul>
                   </div>
@@ -152,7 +164,7 @@
           </div>
           <div class="login-section">
             <ul>
-            <li><a href="error-page.html"><i class="fa fa-sign-out"></i>Log in <b>/</b></a></li>
+            <li><a href="login.php"><i class="fa fa-sign-in"></i>Log in <b>/</b></a></li>
             <li><a href="signup.php"> Sign up</a></li>
           </ul>
         </div>
@@ -286,11 +298,12 @@
                 <div class="col-md-12">
                   <span>
                     <?php
-                      if(isset($_GET['error']) && $_GET['error'] == 0) echo 'Welcome on board!<a href="error-page.html"> Start Uploading</a></br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 1) echo 'Passwords do not match</br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 2) echo '<span style="color: red;">RTF Name not found!!!</span></br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 3) echo 'Check the box before registering</br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 4) echo 'Please use a stronger password, minimum length must be 6</br>';
+                      if(isset($_GET['error']) && $_GET['error'] == 0) echo '<span class="btn btn-primary">Welcome on board!<a href="error-page.html"> Start Uploading</a></span></br>';
+                      if(isset($_GET['error']) && $_GET['error'] == 1) echo '<span class="btn btn-danger">Passwords do not match</span></br>';
+                      if(isset($_GET['error']) && $_GET['error'] == 2) echo '<span class="btn btn-danger">RTF Name not found!!!</span></br>';
+                      if(isset($_GET['error']) && $_GET['error'] == 3) echo '<span class="btn btn-danger">Check the box before registering</span></br>';
+                      if(isset($_GET['error']) && $_GET['error'] == 4) echo '<span class="btn btn-warning">Please use a stronger password, minimum length must be 6</span></br>';
+                      if(isset($_GET['error']) && $_GET['error'] == 5) echo '<span class="btn btn-warning">RTF name already registered</span></br>';
                     ?>
                   </span>
                 </div>
@@ -313,7 +326,7 @@
                   <input type="password" name="psword2" placeholder="Confirm Password *" required>
                 </div>
                 <div class="col-md-6">
-                  <input type="checkbox" name="ckbox" value="1" checked="true">
+                  <input type="checkbox" name="ckbox" value="1">
                   <strong class="title">I testify that I am an RTF <a href="error-page.html">Family Policy</a></strong>
                 </div>
                 <div class="col-md-6">
