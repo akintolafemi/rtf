@@ -1,6 +1,42 @@
 <?php
   session_start();
+  include('data.php');
   if (!$_SESSION['member']) header('Location: login.php');
+?>
+
+<?php
+
+  if ($_POST) {
+    if (isset($_POST['yrphn']) && isset($_POST['dob']) && isset($_POST['rtfdep']) && isset($_POST['schdep']) && isset($_POST['schaddress']) && isset($_POST['homeaddress'])){
+      if (empty($_POST['yrphn'])) $_POST['yrphn'] = $phone;
+      if (empty($_POST['dob'])) $_POST['dob'] = $dob;
+      if (empty($_POST['rtfdep'])) $_POST['rtfdep'] = $rtfdep;
+      if (empty($_POST['schdep'])) $_POST['schdep'] = $schdep;
+      if (empty($_POST['level'])) $_POST['level'] = $level;
+      if (empty($_POST['schaddress'])) $_POST['schaddress'] = $schaddress;
+      if (empty($_POST['homeaddress'])) $_POST['homeaddress'] = $homeaddress;
+      $phone = $_POST['yrphn'];
+      $dob = $_POST['dob'];
+      $rtfdep = $_POST['rtfdep'];
+      $schdep = $_POST['schdep'];
+      $level = $_POST['level'];
+      $schaddress = $_POST['schaddress'];
+      $homeaddress = $_POST['homeaddress'];
+
+      $update = "UPDATE `tb_membersinrtf` SET
+        col_yrphn = '".mysqli_real_escape_string($db, $phone)."',
+        col_dob = '".mysqli_real_escape_string($db, $dob)."',
+        col_rtfdep = '".mysqli_real_escape_string($db, $rtfdep)."',
+        col_schdep = '".mysqli_real_escape_string($db, $schdep)."',
+        col_level = '".mysqli_real_escape_string($db, $level)."',
+        col_schaddress = '".mysqli_real_escape_string($db, $schaddress)."',
+        col_homeaddress = '".mysqli_real_escape_string($db, $homeaddress)."' WHERE `col_rtfname` = '$member'";
+      if(!$res = $db->query($update)){
+          die('There was an error running the query [' . $db->error . ']');
+      }
+
+    }
+  }
 ?>
 <!doctype html>
 <html>
@@ -54,11 +90,11 @@
                   <div class="login-section">
                     <ul>
                       <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
-                      <li><a href="#"><span></span><img src="images/author.jpg"</a></li>
+                      <li><a href="#"><span id="profilepic"><img src="members/profile.pictures/<?php echo $avatar; ?>"/></span></a></li>
                     </ul>
                   </div>
                 </div>
-                <strong class="logo-2"><a href="index.html" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
+                <strong class="logo-2"><a href="index.php" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
                 <form action="#">
                   <input type="text" placeholder="Search photos" required>
                   <button><span class="icon-icons-06"></span></button>
@@ -69,7 +105,7 @@
                     <div class="cp_side-navigation">
                       <nav>
                         <ul class="navbar-nav">
-                          <li class="active"><a href="index.html">Home</a></li>
+                          <li class="active"><a href="index.php">Home</a></li>
                           <li><a href="error-page.html">Cover Photos</a></li>
                           <li><a href="error-page.html">Latest</a></li>
                           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
@@ -111,10 +147,10 @@
           <div class="login-section">
             <ul>
               <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
-              <li><a href="#"><span></span><img src="images/author.jpg"</a></li>
+              <li><a href="#"><span id="profilepic"><img src="members/profile.pictures/<?php echo $avatar; ?>"/></span></a></li>
             </ul>
         </div>
-        <div class="container"> <strong class="logo"><a href="index.html" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
+        <div class="container"> <strong class="logo"><a href="index.php" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
       </section>
       <section class="cp-navigation-row">
         <div class="container">
@@ -129,7 +165,7 @@
                 <li>
                   <div class="cp-search-box"><a href="#" id="searchtoggl"><span class="icon-icons-06"></span></a></div>
                 </li>
-                <li> <a href="error-page.html" class="upload-btn"><i class="fa fa-upload"></i></a> </li>
+                <li> <a href="media-upload.php" class="upload-btn"><i class="fa fa-upload"></i></a> </li>
               </ul>
             </div>
           </div>
@@ -155,43 +191,68 @@
                 <details>
                   <ul>
                     <li><span class="address-addon"><i class="fa fa-user"></i></span>
-                      <p>Names: Akintola Micheal O [FMJ]</p>
+                      <p>Names: <?php echo $lname.' '.$fname.' ['.$rtfname.']'; ?></p>
                     </li>
                     <li><span class="address-addon"><i class="fa fa-phone"></i></span>
-                      <p>Phone: 0123 456 7890</p>
+                      <p>Phone: <?php echo $phone; ?></p>
                     </li>
-                    <li><span class="address-addon"><i class="fa fa-unit"></i></span>
-                      <p>Department: Light and Stage</p>
+                    <li><span class="address-addon"><i class="fa fa-leaf"></i></span>
+                      <p>Department: <?php echo $rtfdep; ?></p>
                     </li>
                     <li><span class="address-addon"><i class="fa fa-university"></i></span>
-                      <p>Academic: Computer Science</p>
+                      <p>Academic: <?php echo $schdep; ?></p>
                     </li>
-                    <li><span class="address-addon"><i class="fa fa-house"></i></span>
-                      <p>Room Number: A25, Indy Hall, UI</p>
+                    <li><span class="address-addon"><i class="fa fa-trophy"></i></span>
+                      <p>Level: <?php echo $level; ?></p>
                     </li>
-                    <li><span class="address-addon"><i class="fa fa-unit"></i></span>
-                      <p>Birthday: Birthday</p>
+                    <li><span class="address-addon"><i class="fa fa-location-arrow"></i></span>
+                      <p>Room Number: <?php echo $schaddress; ?></p>
                     </li>
-                    <li><span class="address-addon"><i class="fa fa-unit"></i></span>
-                      <p>Home Address: Home</p>
+                    <li><span class="address-addon"><i class="fa fa-map-marker"></i></span>
+                      <p>Home Address: <?php echo $homeaddress; ?></p>
+                    </li>
+                    <li><span class="address-addon"><i class="fa fa-calendar-o"></i></span>
+                      <p>Birthday: <?php echo $dob; ?></p>
                     </li>
                   </ul>
                 </details>
+              </div>
+              <div class="cp-contact-form">
+                <h5>change  profile picture</h5>
+                <form>
+                  <ul>
+                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                      <input accept="image/jpeg, image/png" style="background: #d94350; border-radius: 3px; padding: 1em; height: 50px;" type="file" class="form-control" name="img" />
+                    </li>
+                  </ul>
+                </form>
               </div>
             </div>
             <div class="col-md-8">
               <div class="cp-contact-form">
                 <h2>EDIT INFO</h2>
-                <form class="material" method="post" action="#">
+                <form class="material" method="post" action="member.php">
                   <ul>
-                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                      <input type="text" class="form-control" placeholder="RTF Name" name="rtfname" required>
+                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+                      <input type="text" class="form-control" placeholder="Phone Number" name="yrphn" />
                     </li>
-                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                      <input type="text" class="form-control" placeholder="Phone Number" name="yrphn" required>
+                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                      <input type="text" class="form-control" placeholder="Date of Birth" name="dob" />
                     </li>
-                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                      <input type="text" class="form-control" placeholder="Name" name="name" required>
+                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-leaf"></i></span>
+                      <input type="text" class="form-control" placeholder="RTF Department" name="rtfdep" />
+                    </li>
+                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-university"></i></span>
+                      <input type="text" class="form-control" placeholder="School Department" name="schdep" />
+                    </li>
+                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-dashboard"></i></span>
+                      <input type="text" class="form-control" placeholder="Level" name="level" />
+                    </li>
+                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+                      <input type="text" class="form-control" placeholder="School Address" name="schaddress" />
+                    </li>
+                    <li class="input-group"> <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                      <input type="text" class="form-control" placeholder="Home Address" name="homeaddress" />
                     </li>
                     <li>
                       <button type="submit" class="btn btn-submit"> Submit <i class="fa fa-angle-right"></i></button>
@@ -212,27 +273,7 @@
             <div class="cp-box">
               <h2>Browse Images by Member Profiles</h2>
               <div class="row">
-                <div class="col-md-4">
-                  <ul>
-                    <li><a href="#">Member 1</a></li>
-                    <li><a href="#">Member 2</a></li>
-                    <li><a href="#">member 3</a></li>
-                  </ul>
-                </div>
-                <div class="col-md-4">
-                  <ul>
-                    <li><a href="#">member 4</a></li>
-                    <li><a href="#">member 5</a></li>
-                    <li><a href="#">member 6</a></li>
-                  </ul>
-                </div>
-                <div class="col-md-4">
-                  <ul>
-                    <li><a href="#">Member 7</a></li>
-                    <li><a href="#">Member 8</a></li>
-                    <li><a href="#">Member 9</a></li>
-                  </ul>
-                </div>
+                <?php include('members.php'); ?>
               </div>
             </div>
           </div>
@@ -288,5 +329,12 @@
     <script src='js/bg-moving.js'></script>
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
+    <script src="./vendor/canvas-to-blob.min.js"></script>
+		<script src="./js/resizeavatar.js"></script>
+		<script src="./js/appavatar.js"></script>
   </body>
 </html>
+
+<?php
+  $db->close();
+?>

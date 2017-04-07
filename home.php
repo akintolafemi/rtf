@@ -1,5 +1,6 @@
 <?php
   session_start();
+  include('data.php');
   if (!$_SESSION['member']) header('Location: login.php');
 ?>
 <!doctype html>
@@ -54,11 +55,11 @@
                   <div class="login-section">
                     <ul>
                       <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
-                      <li><a href="#"><span></span><img src="images/author.jpg"</a></li>
+                      <li><a href="#"><span></span><img src="members/profile.pictures/<?php echo $avatar; ?>"</a></li>
                     </ul>
                   </div>
                 </div>
-                <strong class="logo-2"><a href="index.html" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
+                <strong class="logo-2"><a href="index.php" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
                 <form action="#">
                   <input type="text" placeholder="Search photos" required>
                   <button><span class="icon-icons-06"></span></button>
@@ -69,7 +70,7 @@
                     <div class="cp_side-navigation">
                       <nav>
                         <ul class="navbar-nav">
-                          <li class="active"><a href="index.html">Home</a></li>
+                          <li class="active"><a href="index.php">Home</a></li>
                           <li><a href="error-page.html">Cover Photos</a></li>
                           <li><a href="error-page.html">Latest</a></li>
                           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
@@ -111,10 +112,10 @@
           <div class="login-section">
             <ul>
               <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
-              <li><a href="#"><span></span><img src="images/author.jpg"</a></li>
+              <li><a href="#"><span></span><img src="members/profile.pictures/<?php echo $avatar; ?>"</a></li>
             </ul>
         </div>
-        <div class="container"> <strong class="logo"><a href="index.html" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
+        <div class="container"> <strong class="logo"><a href="index.php" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
       </section>
       <section class="cp-navigation-row">
         <div class="container">
@@ -129,7 +130,7 @@
                 <li>
                   <div class="cp-search-box"><a href="#" id="searchtoggl"><span class="icon-icons-06"></span></a></div>
                 </li>
-                <li> <a href="error-page.html" class="upload-btn"><i class="fa fa-upload"></i></a> </li>
+                <li> <a href="media-upload.php" class="upload-btn"><i class="fa fa-upload"></i></a> </li>
               </ul>
             </div>
           </div>
@@ -152,27 +153,7 @@
             <div class="cp-box">
               <h2>Browse Images by Member Profiles</h2>
               <div class="row">
-                <div class="col-md-4">
-                  <ul>
-                    <li><a href="#">Member 1</a></li>
-                    <li><a href="#">Member 2</a></li>
-                    <li><a href="#">member 3</a></li>
-                  </ul>
-                </div>
-                <div class="col-md-4">
-                  <ul>
-                    <li><a href="#">member 4</a></li>
-                    <li><a href="#">member 5</a></li>
-                    <li><a href="#">member 6</a></li>
-                  </ul>
-                </div>
-                <div class="col-md-4">
-                  <ul>
-                    <li><a href="#">Member 7</a></li>
-                    <li><a href="#">Member 8</a></li>
-                    <li><a href="#">Member 9</a></li>
-                  </ul>
-                </div>
+                <?php include('members.php'); ?>
               </div>
             </div>
           </div>

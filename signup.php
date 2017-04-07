@@ -1,5 +1,11 @@
 <?php
   require ('members/connect.inc.php');
+  session_start();
+  if (isset($_SESSION['member']) && !empty($_SESSION['member'])){
+    header('Location: home.php');
+    exit();
+  }
+
   if ($_POST) {
     $error = 0;
     $rtfname = strtolower($_POST['rtfname']);
@@ -112,7 +118,7 @@
                     </ul>
                   </div>
                 </div>
-                <strong class="logo-2"><a href="index.html"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
+                <strong class="logo-2"><a href="index.php"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
                 <form action="#">
                   <input type="text" placeholder="Search photos" required>
                   <button><span class="icon-icons-06"></span></button>
@@ -123,7 +129,7 @@
                     <div class="cp_side-navigation">
                       <nav>
                         <ul class="navbar-nav">
-                          <li class="active"><a href="index.html">Home</a></li>
+                          <li class="active"><a href="index.php">Home</a></li>
                           <li><a href="error-page.html">Cover Photos</a></li>
                           <li><a href="error-page.html">Latest</a></li>
                           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
@@ -168,7 +174,7 @@
             <li><a href="signup.php"> Sign up</a></li>
           </ul>
         </div>
-        <div class="container"> <strong class="logo"><a href="index.html"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
+        <div class="container"> <strong class="logo"><a href="index.php"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
       </section>
       <section class="cp-navigation-row">
         <div class="container">
@@ -298,7 +304,7 @@
                 <div class="col-md-12">
                   <span>
                     <?php
-                      if(isset($_GET['error']) && $_GET['error'] == 0) echo '<span class="btn btn-primary">Welcome on board!<a href="error-page.html"> Start Uploading</a></span></br>';
+                      if(isset($_GET['error']) && $_GET['error'] == 0) echo '<span class="btn btn-primary">Welcome on board!<a href="member.php"> Start Uploading</a></span></br>';
                       if(isset($_GET['error']) && $_GET['error'] == 1) echo '<span class="btn btn-danger">Passwords do not match</span></br>';
                       if(isset($_GET['error']) && $_GET['error'] == 2) echo '<span class="btn btn-danger">RTF Name not found!!!</span></br>';
                       if(isset($_GET['error']) && $_GET['error'] == 3) echo '<span class="btn btn-danger">Check the box before registering</span></br>';
