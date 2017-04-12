@@ -33,8 +33,8 @@ window.resize = (function () {
 
 				// Resize image
 				var canvas = document.createElement('canvas'),
-					width = 98,
-					height = 98;
+					width = 360,
+					height = 400;
 				canvas.width = width;
 				canvas.height = height;
 				canvas.getContext('2d').drawImage(image, 0, 0, width, height);

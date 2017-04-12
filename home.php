@@ -55,7 +55,6 @@
                   <div class="login-section">
                     <ul>
                       <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
-                      <li><a href="#"><span></span><img src="members/profile.pictures/<?php echo $avatar; ?>"</a></li>
                     </ul>
                   </div>
                 </div>
@@ -112,7 +111,6 @@
           <div class="login-section">
             <ul>
               <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
-              <li><a href="#"><span></span><img src="members/profile.pictures/<?php echo $avatar; ?>"</a></li>
             </ul>
         </div>
         <div class="container"> <strong class="logo"><a href="index.php" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>

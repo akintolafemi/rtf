@@ -45,10 +45,11 @@
       }
       if ($error == 0) {
         $psword = md5(sha1($psword));
-        $insert = "INSERT INTO `tb_membersinrtf` (col_fname, col_lname, col_rtfname, col_psword, col_yrphn)
+        $avatar = md5(mt_rand()).'.jpg';
+        $insert = "INSERT INTO `tb_membersinrtf` (col_fname, col_lname, col_rtfname, col_psword, col_yrphn, col_picture)
         VALUES ('".mysqli_real_escape_string($db, $ftname)."', '".mysqli_real_escape_string($db, $ltname)."',
         '".mysqli_real_escape_string($db, $rtfname)."', '".mysqli_real_escape_string($db, $psword)."',
-        '".mysqli_real_escape_string($db, $yrphn)."')";
+        '".mysqli_real_escape_string($db, $yrphn)."', '".mysqli_real_escape_string($db, $avatar)."')";
         if(!$res = $db->query($insert)){
           die('There was an error running the query [' . $db->error . ']');
         }

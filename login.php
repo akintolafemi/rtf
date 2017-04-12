@@ -35,6 +35,16 @@
       if ($error == 0) {
         session_start();
         $_SESSION['member'] = $member;
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $date = date('Y-m-d');
+        $webapp = $_SERVER['HTTP_USER_AGENT'];
+        $update = "UPDATE `tb_membersinrtf` SET
+          col_lastlogin = '".mysqli_real_escape_string($db, $date)."',
+          col_lastip = '".mysqli_real_escape_string($db, $ip)."',
+          col_webapp = '".mysqli_real_escape_string($db, $webapp)."' WHERE `col_rtfname` = '$member'";
+        if(!$res = $db->query($update)){
+            die('There was an error running the query [' . $db->error . ']');
+        }
         header('Location: home.php');
       }
     }

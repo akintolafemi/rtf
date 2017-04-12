@@ -55,7 +55,6 @@ if (!$_SESSION['member']) header('Location: login.php');
                   <div class="login-section">
                     <ul>
                       <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
-                      <li><a href="#"><span id="profilepic"><img src="members/profile.pictures/<?php echo $avatar; ?>"/></span></a></li>
                     </ul>
                   </div>
                 </div>
@@ -112,7 +111,6 @@ if (!$_SESSION['member']) header('Location: login.php');
           <div class="login-section">
             <ul>
               <li><a href="signout.php" title="Sign Out"><span class="fa fa-sign-out"></span> Sign Out</a></li>
-              <li><a href="#"><span id="profilepic"><img src="members/profile.pictures/<?php echo $avatar; ?>"/></span></a></li>
             </ul>
         </div>
         <div class="container"> <strong class="logo"><a href="index.php" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
@@ -166,46 +164,31 @@ if (!$_SESSION['member']) header('Location: login.php');
             </div>
             <div class="col-md-6">
               <div class="cp-fill-box">
-                <h2>Fill out these fields</h2>
+                <h2>Share</h2>
                 <ul>
                   <li>
-                    <div class="fill-box-head"> <strong class="title">Select Size</strong> <strong class="dpi">Dimension / dpi</strong> <strong class="price">Price $</strong> </div>
+                    <div class="fill-box-head"> <strong class="title">Who should see this</strong> </div>
                   </li>
                   <li>
                     <div class="cp-check-box">
-                      <label for="id1">Small</label>
-                      <input id="id1" type="checkbox" checked="checked"/>
+                      <label for="id1">Public</label>
+                      <input name="share" value="public" type="radio" />
                     </div>
-                    <input type="text" class="input-1">
-                    <i class="fa fa-close"></i>
-                    <input type="text" class="input-1">
-                    <span>/</span>
-                    <input type="text" class="input-1">
-                    <input type="text" class="input-2">
+                    Will be displayed on Homepage
                   </li>
                   <li>
                     <div class="cp-check-box">
-                      <label for="id2">Medium</label>
-                      <input id="id2" type="checkbox" checked="checked"/>
+                      <label for="id2">Private</label>
+                      <input name="share" value="private" type="radio" />
                     </div>
-                    <input type="text" class="input-1">
-                    <i class="fa fa-close"></i>
-                    <input type="text" class="input-1">
-                    <span>/</span>
-                    <input type="text" class="input-1">
-                    <input type="text" class="input-2">
+                    No one will see this
                   </li>
                   <li>
                     <div class="cp-check-box">
-                      <label for="id3">Large</label>
-                      <input id="id3" type="checkbox" checked="checked"/>
+                      <label for="id3">Members</label>
+                      <input name="share" value="membersalone" type="radio" />
                     </div>
-                    <input type="text" class="input-1">
-                    <i class="fa fa-close"></i>
-                    <input type="text" class="input-1">
-                    <span>/</span>
-                    <input type="text" class="input-1">
-                    <input type="text" class="input-2">
+                    Only Members Will See This
                   </li>
                 </ul>
               </div>
@@ -215,25 +198,25 @@ if (!$_SESSION['member']) header('Location: login.php');
             <div class="col-md-6">
               <div class="image-information">
                 <h2>Image Information </h2>
-                <input type="text" placeholder="Title *" />
-                <input type="text" placeholder="Description" />
-                <input type="text" placeholder="Date" />
+                <input type="text" name="itstitle" placeholder="Title *" />
+                <input type="text" name="itsdescription" placeholder="Description" />
+                <input type="text" name="itslocation" placeholder="Location" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="cp-select-fields">
                 <h2>More</h2>
                 <div class="cp-select">
-                  <select>
-                    <option>Event 1</option>
-                    <option>Event 2</option>
-                    <option>Event 3</option>
-                    <option>Event 4</option>
+                  <select name="eventtype">
+                    <option value="birthday">Birthday</option>
+                    <option value="fof">Fellowship after Fellowship</option>
+                    <option value="rehearsal">Rehearsal</option>
+                    <option value="revnight">Revelation Night</option>
                   </select>
                 </div>
                 <div class="cp-select">
-                  <select>
-                    <option>Tag Member</option>
+                  <select name="tagged">
+                    <option>Tag Someone</option>
                     <?php
                       $sql = "SELECT * FROM `tb_membersinrtf`";
                       $result = $db->query($sql);
@@ -241,14 +224,6 @@ if (!$_SESSION['member']) header('Location: login.php');
                         echo '<option type="checkbox" value="'.$row['col_rtfname'].'">'.strtoupper($row['col_rtfname']).'</option>';
                       }
                     ?>
-                  </select>
-                </div>
-                <div class="cp-select">
-                  <select>
-                    <option>Location</option>
-                    <option>Location 1</option>
-                    <option>Location 2</option>
-                    <option>Location 3</option>
                   </select>
                 </div>
                 <button type="submit" value=""><span class="icon-icons-08"></span>Upload Now</button>

@@ -1,7 +1,8 @@
 <?php
 session_start();
+include ('data.php');
 require ('members/connect.inc.php');
-$filename = md5(mt_rand()).'.jpg';
+$filename = $avatar;
 $where = $_SESSION['member'];
 $update = "UPDATE `tb_membersinrtf` SET col_picture = '".mysqli_real_escape_string($db, $filename)."' WHERE `col_rtfname` = '$where'";
 if(!$res = $db->query($update)){

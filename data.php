@@ -19,6 +19,18 @@
       $homeaddress = $row['col_homeaddress'];
       $fname = $row['col_fname'];
       $lname = $row['col_lname'];
+      $mail = $row['col_email'];
+      $biography = $row['col_biography'];
+      $skill1 = $row['col_skill1'];
+      $skill1_score = $row['col_skill1_score'];
+      $skill2 = $row['col_skill2'];
+      $skill2_score = $row['col_skill2_score'];
+      $skill3 = $row['col_skill3'];
+      $skill3_score = $row['col_skill3_score'];
+      $skill4 = $row['col_skill4'];
+      $skill4_score = $row['col_skill4_score'];
+      $skill5 = $row['col_skill5'];
+      $skill5_score = $row['col_skill5_score'];
     }
   }
 

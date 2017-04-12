@@ -81,14 +81,6 @@
                               <li> <a href="error-page.html">Revelation Night</a> </li>
                             </ul>
                           </li>
-                          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Photo Speaks<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                              <li><a tabindex="-1" href="error-page.html">Album One</a></li>
-                              <li><a tabindex="-1" href="error-page.html">Album Two</a></li>
-                              <li><a tabindex="-1" href="error-page.html">Album Three</a></li>
-                              <li><a tabindex="-1" href="error-page.html">Members Profile</a></li>
-                            </ul>
-                          </li>
                           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pages<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                               <li> <a href="error-page.html">Royal 7</a> </li>
@@ -97,7 +89,6 @@
                               <li> <a href="error-page.html">Join the Family</a> </li>
                               <li> <a href="error-page.html">About us</a> </li>
                               <li> <a href="error-page.html">Contact Us</a> </li>
-                              <li> <a href="error-page.html">Contact 2</a> </li>
                             </ul>
                           </li>
                         </ul>
@@ -176,14 +167,6 @@
                     </li>
                   </ul>
                 </li>
-                <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Photo Speaks<b class="caret"></b></a>
-                  <ul role="menu" class="dropdown-menu classic-menu">
-                    <li><a tabindex="-1" href="error-page.html">Album One</a></li>
-                    <li><a tabindex="-1" href="error-page.html">Album Two</a></li>
-                    <li><a tabindex="-1" href="error-page.html">Album Three</a></li>
-                    <li><a tabindex="-1" href="error-page.html">Members Profile</a></li>
-                  </ul>
-                </li>
                 <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pages<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li>
@@ -202,7 +185,6 @@
                           </ul>
                           <ul class="col-sm-3 list-unstyled">
                             <li> <a href="error-page.html">Contact Us</a> </li>
-                            <li> <a href="error-page.html">Contact 2</a> </li>
                           </ul>
                         </div>
                       </div>
