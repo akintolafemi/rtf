@@ -2,6 +2,34 @@
 session_start();
 include('data.php');
 if (!$_SESSION['member']) header('Location: login.php');
+
+if ($_POST){
+  if (isset($_FILES['media_upload']) && !empty($_FILES['media_upload'])) {
+    $media_upload = ($_FILES['media_upload']['name']);
+    $extension = strtolower(substr($media_upload, strpos($media_upload,'.')+1));
+    $size = ($_FILES['media_upload']['size']);
+    $maxsize = 52428800;
+    if ($size > $maxsize) {
+      echo '<script type="text/javascript">
+              alert("File size too large. Maximum size is 50MB");
+            </script>';
+    }
+    else {
+      if ($extension == 'mp4' || $extension == 'mpeg' || $extension == 'avi' || $extension == 'wmv') {
+        $tbname = 'tb_videos_uploaded';
+        $foldername = 'video.media';
+        doThis($tbname, $media_upload, $foldername, $extension, $member);
+      } else if ($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png') {
+        $tbname = 'tb_pictures_uploaded';
+        $foldername = 'picture.media';
+        doThis($tbname, $media_upload, $foldername, $extension, $member);
+      }
+    }
+    
+  } else {
+    echo '<script type="javascript">alert ("Nothing to Upload"); </script>';
+  }
+}
 ?>
 
 <!doctype html>
@@ -145,7 +173,7 @@ if (!$_SESSION['member']) header('Location: login.php');
     </div>
 
     <section class="cp-upload-form">
-      <form action="#">
+      <form action="media-upload.php" method="post" enctype="multipart/form-data">
         <div class="container">
           <div class="row">
             <div class="col-md-6">
@@ -154,10 +182,10 @@ if (!$_SESSION['member']) header('Location: login.php');
                   <a class="upload-pic">
                     <span class="icon-icons-09"></span>
                   </a>
-                  <strong>Just RTF Picture<b>- - Stay Close - -</b></strong>
+                  <strong>Choose a Picture or Video<b>- - Stay Close - -</b></strong>
                   <span class="btn-file">
                     <span class="icon-icons-08"></span>Click Here
-                    <input type="file" name="img-upload" />
+                    <input type="file" name="media_upload" accept="image/jpeg, image/x-png, video/*" required />
                   </span>
                 </div>
               </div>
@@ -172,17 +200,17 @@ if (!$_SESSION['member']) header('Location: login.php');
                   <li>
                     <div class="cp-check-box">
                       <label for="id1">Public</label>
-                      <input name="share" value="public" type="radio" />
+                      <input name="share" value="public" type="radio" checked />
                     </div>
                     Will be displayed on Homepage
                   </li>
-                  <li>
+                  <!--<li>
                     <div class="cp-check-box">
                       <label for="id2">Private</label>
                       <input name="share" value="private" type="radio" />
                     </div>
                     No one will see this
-                  </li>
+                  </li>-->
                   <li>
                     <div class="cp-check-box">
                       <label for="id3">Members</label>
@@ -198,7 +226,7 @@ if (!$_SESSION['member']) header('Location: login.php');
             <div class="col-md-6">
               <div class="image-information">
                 <h2>Image Information </h2>
-                <input type="text" name="itstitle" placeholder="Title *" />
+                <input type="text" name="itstitle" placeholder="Title *" required />
                 <input type="text" name="itsdescription" placeholder="Description" />
                 <input type="text" name="itslocation" placeholder="Location" />
               </div>
@@ -208,6 +236,7 @@ if (!$_SESSION['member']) header('Location: login.php');
                 <h2>More</h2>
                 <div class="cp-select">
                   <select name="eventtype">
+                    <option value="other">Other</option>
                     <option value="birthday">Birthday</option>
                     <option value="fof">Fellowship after Fellowship</option>
                     <option value="rehearsal">Rehearsal</option>
@@ -216,7 +245,7 @@ if (!$_SESSION['member']) header('Location: login.php');
                 </div>
                 <div class="cp-select">
                   <select name="tagged">
-                    <option>Tag Someone</option>
+                    <option value="">Tag Someone</option>
                     <?php
                       $sql = "SELECT * FROM `tb_membersinrtf`";
                       $result = $db->query($sql);
@@ -302,9 +331,7 @@ if (!$_SESSION['member']) header('Location: login.php');
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
     <script src="./vendor/canvas-to-blob.min.js"></script>
-		<script src="./js/resizeavatar.js"></script>
-		<script src="./js/appavatar.js"></script>
-  </body>
+	</body>
 </html>
 
 <?php

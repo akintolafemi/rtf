@@ -1,68 +1,18 @@
 <?php
-  require ('members/connect.inc.php');
-  session_start();
-  if (isset($_SESSION['member']) && !empty($_SESSION['member'])){
-    header('Location: home.php');
-    exit();
+  require_once('members/connect.inc.php');
+  include('data.php');
+  if (!isset($_GET['member']) || empty($_GET['member'])) {
+    header('Location: index.php');
   }
-
-  if ($_POST) {
-    $error = 0;
-    $rtfname = strtolower($_POST['rtfname']);
-    $sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '$rtfname'";
-    if(!$result = $db->query($sql)){
-      die('There was an error running the query [' . $db->error . ']');
-    }
-    if ($result->num_rows == 0) {
-      $error = 1;
-      header('Location: signup.php?error=2');
-    }
-    else{
-      $psword = $_POST['psword'];
-      $psword2 = $_POST['psword2'];
-      $ftname = $_POST['ftname'];
-      $ltname = $_POST['ltname'];
-      $yrphn = $_POST['yrphn'];
-      $sql = "SELECT * FROM `tb_membersinrtf` WHERE `col_rtfname` = '$rtfname'";
-      if(!$result = $db->query($sql)){
-        die('There was an error running the query [' . $db->error . ']');
-      }
-      if ($result->num_rows > 0) {
-        $error = 1;
-        header('Location: signup.php?error=5');
-      }
-      if (!isset($_POST['ckbox'])) {
-        $error = 1;
-        header('Location: signup.php?error=3');
-      }
-      if (strlen($psword) < 6){
-        $error = 1;
-        header('Location: signup.php?error=4');
-      }
-      if ($psword != $psword2) {
-        $error = 1;
-        header('Location: signup.php?error=1');
-      }
-      if ($error == 0) {
-        $psword = md5(sha1($psword));
-        $avatar = '';
-        $insert = "INSERT INTO `tb_membersinrtf` (col_fname, col_lname, col_rtfname, col_psword, col_yrphn, col_picture)
-        VALUES ('".mysqli_real_escape_string($db, $ftname)."', '".mysqli_real_escape_string($db, $ltname)."',
-        '".mysqli_real_escape_string($db, $rtfname)."', '".mysqli_real_escape_string($db, $psword)."',
-        '".mysqli_real_escape_string($db, $yrphn)."', '".mysqli_real_escape_string($db, $avatar)."')";
-        if(!$res = $db->query($insert)){
-          die('There was an error running the query [' . $db->error . ']');
-        }
-        else {
-          $db->close();
-          header('Location: signup.php?error=0');
-        }
-      }
-    }
+  $rtfname = $_GET['member'];
+  $sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '$rtfname'";
+  if(!$result = $db->query($sql)){
+    die('There was an error running the query [' . $db->error . ']');
   }
-
+  if ($result->num_rows == 0) {
+    header('Location: index.php');
+  }
 ?>
-
 <!doctype html>
 <html>
 
@@ -114,12 +64,12 @@
                 <div class="cp-top-bar">
                   <div class="login-section">
                     <ul>
-                      <li><a href="login.php"><i class="fa fa-sign-in"></i>Log in <b>/</b></a></li>
-                      <li><a href="signup.php"> Sign up</a></li>
+                      <li><a href="login.php" title="Login"><i class="fa fa-sign-in"></i>Log in <b>/</b></a></li>
+                      <li><a href="signup.php" title="Sign In"> Sign up</a></li>
                     </ul>
                   </div>
                 </div>
-                <strong class="logo-2"><a href="index.php"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
+                <strong class="logo-2"><a href="index.php" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong>
                 <form action="#">
                   <input type="text" placeholder="Search photos" required>
                   <button><span class="icon-icons-06"></span></button>
@@ -142,14 +92,6 @@
                               <li> <a href="error-page.html">Revelation Night</a> </li>
                             </ul>
                           </li>
-                          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Photo Speaks<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                              <li><a tabindex="-1" href="error-page.html">Album One</a></li>
-                              <li><a tabindex="-1" href="error-page.html">Album Two</a></li>
-                              <li><a tabindex="-1" href="error-page.html">Album Three</a></li>
-                              <li><a tabindex="-1" href="error-page.html">Members Profile</a></li>
-                            </ul>
-                          </li>
                           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pages<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                               <li> <a href="error-page.html">Royal 7</a> </li>
@@ -158,7 +100,6 @@
                               <li> <a href="error-page.html">Join the Family</a> </li>
                               <li> <a href="error-page.html">About us</a> </li>
                               <li> <a href="error-page.html">Contact Us</a> </li>
-                              <li> <a href="error-page.html">Contact 2</a> </li>
                             </ul>
                           </li>
                         </ul>
@@ -171,11 +112,11 @@
           </div>
           <div class="login-section">
             <ul>
-            <li><a href="login.php"><i class="fa fa-sign-in"></i>Log in <b>/</b></a></li>
-            <li><a href="signup.php"> Sign up</a></li>
-          </ul>
+              <li><a href="login.php" title="Login"><i class="fa fa-sign-in"></i>Log in <b>/</b></a></li>
+              <li><a href="signup.php" title="Sign In"> Sign up</a></li>
+            </ul>
         </div>
-        <div class="container"> <strong class="logo"><a href="index.php"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
+        <div class="container"> <strong class="logo"><a href="index.php" title="Royal Theatre Family"><h2 style="color: #d94350;">Royal Theatre Family - IVCU</h2></a></strong> </div>
       </section>
       <section class="cp-navigation-row">
         <div class="container">
@@ -237,14 +178,6 @@
                     </li>
                   </ul>
                 </li>
-                <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Photo Speaks<b class="caret"></b></a>
-                  <ul role="menu" class="dropdown-menu classic-menu">
-                    <li><a tabindex="-1" href="error-page.html">Album One</a></li>
-                    <li><a tabindex="-1" href="error-page.html">Album Two</a></li>
-                    <li><a tabindex="-1" href="error-page.html">Album Three</a></li>
-                    <li><a tabindex="-1" href="error-page.html">Members Profile</a></li>
-                  </ul>
-                </li>
                 <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pages<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li>
@@ -263,7 +196,6 @@
                           </ul>
                           <ul class="col-sm-3 list-unstyled">
                             <li> <a href="error-page.html">Contact Us</a> </li>
-                            <li> <a href="error-page.html">Contact 2</a> </li>
                           </ul>
                         </div>
                       </div>
@@ -273,7 +205,7 @@
                 <li>
                   <div class="cp-search-box"><a href="#" id="searchtoggl"><span class="icon-icons-06"></span></a></div>
                 </li>
-                <li> <a href="error-page.html" class="upload-btn"><i class="fa fa-upload"></i></a> </li>
+                <li> <a href="media-upload.php" class="upload-btn"><i class="fa fa-upload"></i></a> </li>
               </ul>
             </div>
           </div>
@@ -288,63 +220,127 @@
         </form>
       </div>
     </div>
+    <div class="cp-main-content tb-50">
+      <div class="cp-team-details">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="cp-team-info">
+                <div class="cp-thumb">
+                  <img src="members/profile.pictures/<?php echo $avatar; ?>" alt="<?php echo $rtfname;?>" />
+                </div>
+                <div class="contact-title">
+                  <h2><?php echo $rtfname; ?></h2>
+                  <strong><?php echo $rtfdep ?></strong>
+                </div>
+                <address>
+                  <ul>
+                    <li><i class="fa fa-leaf"></i><?php echo $fname.' '.$lname; ?></li>
+                    <li><i class="fa fa-home"></i><?php echo $schaddress; ?></li>
+                    <li><i class="fa fa-university"></i><?php echo $schdep; ?></li>
+                    <li><i class="fa fa-trophy"></i><?php echo $level; ?></li>
+                    <li><i class="fa fa-location-arrow"></i><?php echo $schaddress; ?></li>
+                    <li><i class="fa fa-map-marker"></i><?php echo $homeaddress; ?></li>
+                    <li><i class="fa fa-calendar-o"></i><?php echo $dob; ?></li>
+                    <li><i class="fa fa-mobile-phone"></i><?php echo $phone; ?></li>
+                    <li><i class="fa fa-envelope-o"></i><?php echo $mail; ?></li>
+                  </ul>
+                </address>
+                <a href="member.pictures.php?member=<?php echo $rtfname;?>" class="btn-view">Browse Pictures by <?php echo $rtfname; ?></a>
+                <a href="member.videos.php?member=<?php echo $rtfname;?>" class="btn-view">Browse Videos by <?php echo $rtfname; ?></a>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="team-detail">
+                <h2>Meet with <?php echo strtoupper($rtfname); ?></h2>
+                <p>
+                  <?php echo $biography; ?>
+                </p>
+              </div>
+              <div class="cp-prograss-bars tb-50">
+                <h2 class="cp-sec-title">Skills</h2>
+                <ul>
+                  <li>
+                    <label><?php echo $skill1; ?></label>
+                    <div class="progress">
+                      <div style="width: <?php echo $skill1_score; ?>%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?php echo $skill1_score; ?>" role="progressbar" class="progress-bar"><strong><?php echo $skill1_score; ?>%</strong></div>
+                    </div>
+                  </li>
+                  <li>
+                    <label><?php echo $skill2; ?></label>
+                    <div class="progress">
+                      <div style="width: <?php echo $skill2_score; ?>%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?php echo $skill2_score; ?>" role="progressbar" class="progress-bar"><strong><?php echo $skill2_score; ?>%</strong> </div>
+                    </div>
+                  </li>
+                  <li>
+                    <label><?php echo $skill3; ?></label>
+                    <div class="progress">
+                      <div style="width: <?php echo $skill3_score; ?>%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?php echo $skill3_score; ?>" role="progressbar" class="progress-bar"> <strong><?php echo $skill3_score; ?>%</strong></div>
+                    </div>
+                  </li>
+                  <li>
+                    <label><?php echo $skill4; ?></label>
+                    <div class="progress">
+                      <div style="width: <?php echo $skill4_score; ?>%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?php echo $skill4_score; ?>" role="progressbar" class="progress-bar"> <strong><?php echo $skill4_score; ?>%</strong></div>
+                    </div>
+                  </li>
+                  <li>
+                    <label><?php echo $skill5; ?></label>
+                    <div class="progress">
+                      <div id="progresscolor" style="width: <?php echo $skill5_score; ?>%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?php echo $skill5_score; ?>" role="progressbar" class="progress-bar"> <strong><?php echo $skill5_score; ?>%</strong></div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <section class="cp-inner-banner">
-      <h1>Welcome to the Family</h1>
-      <div class="breadcrumb">
-        <li><a>where we live and dine in love...</a></li>
+    <section class="category-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="cp-box">
+              <h2>Browse Images by Member Profiles</h2>
+              <div class="row">
+                <?php include('members.php'); ?>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="cp-box">
+              <h2>Browse Images by Events</h2>
+              <div class="row">
+                <div class="col-md-4">
+                  <ul>
+                    <li><a href="#">Event 1</a></li>
+                    <li><a href="#">Event 2</a></li>
+                    <li><a href="#">Event 3</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <ul>
+                    <li><a href="#">Event 4</a></li>
+                    <li><a href="#">Event 5</a></li>
+                    <li><a href="#">Event 6</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <ul>
+                    <li><a href="#">Event 1</a></li>
+                    <li><a href="#">Event 2</a></li>
+                    <li><a href="#">Event 3</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <div id="main">
-      <section class="cp-login cp-register tb-50">
-        <div class="container">
-          <div class="holder">
-            <form action="signup.php" method="POST">
-              <div class="row">
-                <div class="col-md-12">
-                  <span>
-                    <?php
-                      if(isset($_GET['error']) && $_GET['error'] == 0) echo '<span class="btn btn-primary">Welcome on board!<a href="member.php"> Start Uploading</a></span></br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 1) echo '<span class="btn btn-danger">Passwords do not match</span></br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 2) echo '<span class="btn btn-danger">RTF Name not found!!!</span></br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 3) echo '<span class="btn btn-danger">Check the box before registering</span></br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 4) echo '<span class="btn btn-warning">Please use a stronger password, minimum length must be 6</span></br>';
-                      if(isset($_GET['error']) && $_GET['error'] == 5) echo '<span class="btn btn-warning">RTF name already registered</span></br>';
-                    ?>
-                  </span>
-                </div>
-                <div class="col-md-6">
-                  <input type="text" name="ftname" placeholder="First Name *" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="text" name="ltname" placeholder="Last Name *" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="text" name="rtfname" placeholder="RTF Name *" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="text" name="yrphn" placeholder="Your Phone No *" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="password" name="psword" placeholder="Password *" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="password" name="psword2" placeholder="Confirm Password *" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="checkbox" name="ckbox" value="1">
-                  <strong class="title">I testify that I am an RTF <a href="error-page.html">Family Policy</a></strong>
-                </div>
-                <div class="col-md-6">
-                  <input type="submit" value="Start Profile">
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </div>
     <footer id="footer">
       <div class="footer-social">
         <div class="cp-sidebar-social"> <strong class="title">Connect us on</strong>
@@ -367,3 +363,6 @@
     <script src="js/custom.js"></script>
   </body>
 </html>
+<?php
+  $db->close();
+?>

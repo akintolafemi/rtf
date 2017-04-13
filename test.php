@@ -1,17 +1,18 @@
+<?php
+
+
+
+
+?>
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Resize &amp; Upload</title>
-		<link rel="stylesheet" href="./style.css" />
-	</head>
-	<body>
+<body>
 
-		<form>
-			<input type="file" accept="image/jpeg, image/png" multiple />
-		</form>
-		<li><a href="#"><span id="profilepic"><img src="images/author.jpg"/></span></a></li>
-		<script src="./vendor/canvas-to-blob.min.js"></script>
-		<script src="./js/resizeavatar.js"></script>
-		<script src="./js/appavatar.js"></script>
-	</body>
+<video width="320" height="240" controls poster="members/picture.media/pmpsplash.jpg" src="members/video.media/2000 WORDS (Mark Angel Comedy) (Episode 107).mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
+
+</body>
 </html>

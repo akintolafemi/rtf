@@ -286,7 +286,7 @@
                 <address>
                   <ul>
                     <li><i class="fa fa-home"></i><?php echo $schaddress; ?></li>
-                    <li><span class="address-addon"><i class="fa fa-leaf"></i><?php echo $rtfdep; ?></li>
+                    <li><i class="fa fa-leaf"></i><?php echo $rtfdep; ?></li>
                     <li><i class="fa fa-university"></i><?php echo $schdep; ?></li>
                     <li><i class="fa fa-trophy"></i><?php echo $level; ?></li>
                     <li><i class="fa fa-location-arrow"></i><?php echo $schaddress; ?></li>
@@ -389,18 +389,6 @@
         </div>
       </div>
     </div>
-    <div class="cp-main-content top-50">
-      <div class="cp-contactus">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8">
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <section class="category-section">
       <div class="container">
         <div class="row">
