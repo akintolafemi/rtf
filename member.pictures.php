@@ -1,12 +1,13 @@
 <?php
 require_once('members/connect.inc.php');
 include('data.php');
+include('somefunctions.php');
 session_start();
 if (!isset($_GET['member']) || empty($_GET['member'])) {
   header('Location: index.php');
 }
 $rtfname = $_GET['member'];
-$sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '$rtfname'";
+$sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '".mysqli_real_escape_string($db, $rtfname)."'";
 if(!$result = $db->query($sql)){
   die('There was an error running the query [' . $db->error . ']');
 }
@@ -24,9 +25,9 @@ if ($result->num_rows == 0) {
     <meta name="description" content="Royal Theatre Family">
     <meta name="author" content="Royal Theatre Family">
     <meta name="author" content="Akintola Micheal Oluwafemi">
-    <meta http-equiv="refresh" content="300">
+    <meta http-equiv="refresh" content="1000">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Theatre Family</title>
+    <title>Royal Theatre Family -<?php echo 'Pictures by '.$rtfname; ?></title>
 
     <link href="css/custom.css" rel="stylesheet" type="text/css">
 
@@ -234,9 +235,9 @@ if ($result->num_rows == 0) {
     <section class="cp-category cp-photo-box">
       <ul>
         <?php
-          if (!isset($_SESSION['member'])) $sql = "SELECT * FROM `tb_pictures_uploaded` WHERE `col_member` = '$rtfname' AND `col_share` != 'membersalone'";
-          else { $sql = "SELECT * FROM `tb_pictures_uploaded` WHERE `col_member` = '$rtfname'"; }
-          whatToShoot('members/picture.media', $sql);
+          if (!isset($_SESSION['member'])) $sql = "SELECT * FROM `tb_pictures_uploaded` WHERE `col_member` = '".mysqli_real_escape_string($db, $rtfname)."' AND `col_share` != 'membersalone' ORDER BY `col_id` DESC";
+          else { $sql = "SELECT * FROM `tb_pictures_uploaded` WHERE `col_member` = '".mysqli_real_escape_string($db, $rtfname)."' ORDER BY `col_id` DESC"; }
+          pictureToShoot('members/picture.media', $sql);
         ?>
       </ul>
       <div class="cp-load-more"><a href="#" class="load"><span class="icon-icons-10"></span>Load More</a></div>

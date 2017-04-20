@@ -4,7 +4,7 @@ include ('data.php');
 require ('members/connect.inc.php');
 $filename = $avatar;
 $where = $_SESSION['member'];
-$update = "UPDATE `tb_membersinrtf` SET col_picture = '".mysqli_real_escape_string($db, $filename)."' WHERE `col_rtfname` = '$where'";
+$update = "UPDATE `tb_membersinrtf` SET col_picture = '".mysqli_real_escape_string($db, $filename)."' WHERE `col_rtfname` = '".mysqli_real_escape_string($db, $where)."'";
 if(!$res = $db->query($update)){
 	//die('There was an error running the query [' . $db->error . ']');
 }

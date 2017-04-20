@@ -5,7 +5,7 @@
     header('Location: index.php');
   }
   $rtfname = $_GET['member'];
-  $sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '$rtfname'";
+  $sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '".mysqli_real_escape_string($db, $rtfname)."'";
   if(!$result = $db->query($sql)){
     die('There was an error running the query [' . $db->error . ']');
   }
@@ -25,7 +25,7 @@
     <meta name="author" content="Akintola Micheal Oluwafemi">
     <meta http-equiv="refresh" content="300">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Theatre Family</title>
+    <title>RTF - Member Profile [<?php echo $rtfname; ?>]</title>
 
     <link href="css/custom.css" rel="stylesheet" type="text/css">
 
@@ -252,7 +252,7 @@
             </div>
             <div class="col-md-8">
               <div class="team-detail">
-                <h2>Meet with <?php echo strtoupper($rtfname); ?></h2>
+                <h2>Meet with <?php echo $rtfname; ?></h2>
                 <p>
                   <?php echo $biography; ?>
                 </p>

@@ -36,7 +36,7 @@
         col_schaddress = '".mysqli_real_escape_string($db, $schaddress)."',
         col_homeaddress = '".mysqli_real_escape_string($db, $homeaddress)."',
         col_email = '".mysqli_real_escape_string($db, $mail)."',
-        col_biography = '".mysqli_real_escape_string($db, $biography)."' WHERE `col_rtfname` = '$member'";
+        col_biography = '".mysqli_real_escape_string($db, $biography)."' WHERE `col_rtfname` = '".mysqli_real_escape_string($db, $member)."'";
       if(!$res = $db->query($update)){
           die('There was an error running the query [' . $db->error . ']');
       }
@@ -57,7 +57,7 @@
         $member = $_SESSION['member'];
         $update = "UPDATE `tb_membersinrtf` SET
           $col = '".mysqli_real_escape_string($db, $skill)."',
-          $colvalue = '".mysqli_real_escape_string($db, $skillvalue)."' WHERE `col_rtfname` = '$member'";
+          $colvalue = '".mysqli_real_escape_string($db, $skillvalue)."' WHERE `col_rtfname` = '".mysqli_real_escape_string($db, $member)."'";
         if(!$res = $db->query($update)){
             die('There was an error running the query [' . $db->error . ']');
         }
@@ -137,7 +137,7 @@
     <meta name="author" content="Akintola Micheal Oluwafemi">
     <meta http-equiv="refresh" content="300">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Theatre Family</title>
+    <title>RTF - Member [<?php echo $rtfname; ?>]</title>
 
     <link href="css/custom.css" rel="stylesheet" type="text/css">
 
@@ -249,10 +249,10 @@
               <ul class="nav navbar-nav">
                 <li><a href="home.php">Home</a></li>
                 <li class="active"><a href="member.php">Profile</a></li>
+                <li><a href="media-upload.php">Upload</a></li>
                 <li>
                   <div class="cp-search-box"><a href="#" id="searchtoggl"><span class="icon-icons-06"></span></a></div>
                 </li>
-                <li> <a href="media-upload.php" class="upload-btn"><i class="fa fa-upload"></i></a> </li>
               </ul>
             </div>
           </div>

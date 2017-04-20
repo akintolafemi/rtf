@@ -70,7 +70,7 @@
                       <nav>
                         <ul class="navbar-nav">
                           <li class="active"><a href="index.php">Home</a></li>
-                          <li><a href="error-page.html">Cover Photos</a></li>
+                          <!--<li><a href="error-page.html">Cover Photos</a></li>-->
                           <li><a href="error-page.html">Latest</a></li>
                           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -86,7 +86,6 @@
                               <li> <a href="error-page.html">Royal 7</a> </li>
                               <li> <a href="error-page.html">Alumni</a> </li>
                               <li> <a href="error-page.html">Events</a> </li>
-                              <li> <a href="error-page.html">Join the Family</a> </li>
                               <li> <a href="error-page.html">About us</a> </li>
                               <li> <a href="error-page.html">Contact Us</a> </li>
                             </ul>
@@ -115,7 +114,7 @@
             </div>
             <div id="navbar-collapse-1" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="error-page.html">Cover Photos</a></li>
+                <!--<li><a href="error-page.html">Cover Photos</a></li>-->
                 <li><a href="error-page.html">Latests</a></li>
                 <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Categories<b class="caret"></b></a>
                   <ul class="dropdown-menu">
@@ -172,18 +171,15 @@
                     <li>
                       <div class="yamm-content">
                         <div class="row">
-                          <ul class="col-sm-3 list-unstyled">
+                          <ul class="col-sm-4 list-unstyled">
                             <li> <a href="error-page.html">Royal 7</a> </li>
                             <li> <a href="error-page.html">Alumni</a> </li>
                             <li> <a href="error-page.html">Events</a> </li>
                           </ul>
-                          <ul class="col-sm-3 list-unstyled">
-                            <li> <a href="error-page.html">Join the Family</a> </li>
-                          </ul>
-                          <ul class="col-sm-3 list-unstyled">
+                          <ul class="col-sm-4 list-unstyled">
                             <li> <a href="error-page.html">About us</a> </li>
                           </ul>
-                          <ul class="col-sm-3 list-unstyled">
+                          <ul class="col-sm-4 list-unstyled">
                             <li> <a href="error-page.html">Contact Us</a> </li>
                           </ul>
                         </div>

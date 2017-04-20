@@ -25,7 +25,7 @@ if ($_POST){
         doThis($tbname, $media_upload, $foldername, $extension, $member);
       }
     }
-    
+
   } else {
     echo '<script type="javascript">alert ("Nothing to Upload"); </script>';
   }
@@ -42,9 +42,9 @@ if ($_POST){
     <meta name="description" content="Royal Theatre Family">
     <meta name="author" content="Royal Theatre Family">
     <meta name="author" content="Akintola Micheal Oluwafemi">
-    <meta http-equiv="refresh" content="300">
+    <meta http-equiv="refresh" content="1000">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Theatre Family</title>
+    <title>RTF - Member [<?php echo $rtfname; ?>]</title>
     <link href="css/custom.css" rel="stylesheet" type="text/css">
 
     <link href="css/color.css" rel="stylesheet" type="text/css">
@@ -153,10 +153,10 @@ if ($_POST){
               <ul class="nav navbar-nav">
                 <li><a href="home.php">Home</a></li>
                 <li><a href="member.php">Profile</a></li>
+                <li class="active"><a href="media-upload.php">Upload</a></li>
                 <li>
                   <div class="cp-search-box"><a href="#" id="searchtoggl"><span class="icon-icons-06"></span></a></div>
                 </li>
-                <li> <a href="media-upload.php" class="upload-btn"><i class="fa fa-upload active"></i></a> </li>
               </ul>
             </div>
           </div>
@@ -236,11 +236,11 @@ if ($_POST){
                 <h2>More</h2>
                 <div class="cp-select">
                   <select name="eventtype">
-                    <option value="other">Other</option>
-                    <option value="birthday">Birthday</option>
-                    <option value="fof">Fellowship after Fellowship</option>
-                    <option value="rehearsal">Rehearsal</option>
-                    <option value="revnight">Revelation Night</option>
+                    <option value="Other <i><?php echo date('d:M:Y');?></i>">Other</option>
+                    <option value="Birthday <i><?php echo date('d:M:Y'); ?></i>">Birthday</option>
+                    <option value="Fellowship after Fellowship <i><?php echo date('d:M:Y'); ?></i>">Fellowship after Fellowship</option>
+                    <option value="Rehearsal <i><?php echo date('d:M:Y');?></i>">Rehearsal</option>
+                    <option value="Revelation Night <i><?php echo date('Y'); ?></i>">Revelation Night</option>
                   </select>
                 </div>
                 <div class="cp-select">

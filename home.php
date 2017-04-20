@@ -13,9 +13,9 @@
     <meta name="description" content="Royal Theatre Family">
     <meta name="author" content="Royal Theatre Family">
     <meta name="author" content="Akintola Micheal Oluwafemi">
-    <meta http-equiv="refresh" content="300">
+    <meta http-equiv="refresh" content="1000">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Theatre Family</title>
+    <title>RTF - Member Area</title>
 
     <link href="css/custom.css" rel="stylesheet" type="text/css">
 
@@ -125,10 +125,10 @@
               <ul class="nav navbar-nav">
                 <li class="active"><a href="home.php">Home</a></li>
                 <li><a href="member.php">Profile</a></li>
+                <li><a href="media-upload.php">Upload</a></li>
                 <li>
                   <div class="cp-search-box"><a href="#" id="searchtoggl"><span class="icon-icons-06"></span></a></div>
                 </li>
-                <li> <a href="media-upload.php" class="upload-btn"><i class="fa fa-upload"></i></a> </li>
               </ul>
             </div>
           </div>

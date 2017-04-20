@@ -1,5 +1,6 @@
 <?php
   require ('members/connect.inc.php');
+  include('somefunctions.php');
   session_start();
   if (isset($_SESSION['member']) && !empty($_SESSION['member'])){
     header('Location: home.php');
@@ -8,8 +9,8 @@
 
   if ($_POST) {
     $error = 0;
-    $rtfname = strtolower($_POST['rtfname']);
-    $sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '$rtfname'";
+    $rtfname = safeStrip(strtolower($_POST['rtfname']));
+    $sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '".mysqli_real_escape_string($db, $rtfname)."'";
     if(!$result = $db->query($sql)){
       die('There was an error running the query [' . $db->error . ']');
     }
@@ -23,7 +24,7 @@
       $ftname = $_POST['ftname'];
       $ltname = $_POST['ltname'];
       $yrphn = $_POST['yrphn'];
-      $sql = "SELECT * FROM `tb_membersinrtf` WHERE `col_rtfname` = '$rtfname'";
+      $sql = 'SELECT * FROM `tb_membersinrtf` WHERE `col_rtfname` = "$rtfname"';
       if(!$result = $db->query($sql)){
         die('There was an error running the query [' . $db->error . ']');
       }
@@ -46,6 +47,7 @@
       if ($error == 0) {
         $psword = md5(sha1($psword));
         $avatar = '';
+        $rtfname = $_POST['rtfname'];
         $insert = "INSERT INTO `tb_membersinrtf` (col_fname, col_lname, col_rtfname, col_psword, col_yrphn, col_picture)
         VALUES ('".mysqli_real_escape_string($db, $ftname)."', '".mysqli_real_escape_string($db, $ltname)."',
         '".mysqli_real_escape_string($db, $rtfname)."', '".mysqli_real_escape_string($db, $psword)."',

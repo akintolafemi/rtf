@@ -1,5 +1,6 @@
 <?php
   require ('members/connect.inc.php');
+  include ('somefunctions.php');
   session_start();
   if (isset($_SESSION['member']) && !empty($_SESSION['member'])){
     header('Location: home.php');
@@ -7,8 +8,8 @@
   }
   if ($_POST) {
     $error = 0;
-    $rtfname = strtolower($_POST['rtfname']);
-    $sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '$rtfname'";
+    $rtfname = safeStrip(strtolower($_POST['rtfname']));
+    $sql = "SELECT * FROM `tb_rtfnames` WHERE `allrtfnames` = '".mysqli_real_escape_string($db, $rtfname)."'";
     if(!$result = $db->query($sql)){
       die('There was an error running the query [' . $db->error . ']');
     }
@@ -18,7 +19,8 @@
     }
     else{
       $psword = md5(sha1($_POST['psword']));
-      $sql = "SELECT * FROM `tb_membersinrtf` WHERE `col_rtfname` = '$rtfname'";
+      $rtfname = $_POST['rtfname'];
+      $sql = "SELECT * FROM `tb_membersinrtf` WHERE `col_rtfname` = '".mysqli_real_escape_string($db, $rtfname)."'";
       if(!$result = $db->query($sql)){
         die('There was an error running the query [' . $db->error . ']');
       }
@@ -41,7 +43,7 @@
         $update = "UPDATE `tb_membersinrtf` SET
           col_lastlogin = '".mysqli_real_escape_string($db, $date)."',
           col_lastip = '".mysqli_real_escape_string($db, $ip)."',
-          col_webapp = '".mysqli_real_escape_string($db, $webapp)."' WHERE `col_rtfname` = '$member'";
+          col_webapp = '".mysqli_real_escape_string($db, $webapp)."' WHERE `col_rtfname` = '".mysqli_real_escape_string($db, $member)."'";
         if(!$res = $db->query($update)){
             die('There was an error running the query [' . $db->error . ']');
         }

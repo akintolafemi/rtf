@@ -2,7 +2,7 @@
 require ('members/connect.inc.php');
 if (isset($_GET['member'])) $rtfname = $_GET['member'];
 else { $rtfname = $_SESSION['member']; }
-$sql = "SELECT * FROM `tb_membersinrtf` WHERE `col_rtfname` = '$rtfname'";
+$sql = "SELECT * FROM `tb_membersinrtf` WHERE `col_rtfname` = '".mysqli_real_escape_string($db, $rtfname)."'";
 if(!$result = $db->query($sql)){
   die('There was an error running the query [' . $db->error . ']');
 }
@@ -51,7 +51,7 @@ function doThis($tbname, $media_upload, $foldername, $extension, $member) {
     $tagged = $_POST['tagged'];
     $eventtype = $_POST['eventtype'];
     $date = date('Y-m-d');
-    $sql = "SELECT * FROM `$tbname` WHERE `col_name` = '$media_upload'";
+    $sql = "SELECT * FROM `$tbname` WHERE `col_name` = '".mysqli_real_escape_string($db, $media_upload)."'";
     if(!$result = $db->query($sql)){
       die('There was an error running the query [' . $db->error . ']');
     }
@@ -75,46 +75,6 @@ function doThis($tbname, $media_upload, $foldername, $extension, $member) {
               </script>';
         }
       }
-    }
-  }
-}
-
-function whatToShoot($foldername, $sql){
-  $host = 'localhost';
-  $username = 'PoG';
-  $password = 'phpmyadmin';
-  $database = 'wearertfitesofivcu-nifes';
-  $db = new mysqli($host, $username, $password, $database);
-  if(!$result = $db->query($sql)){
-    die('There was an error running the query [' . $db->error . ']');
-  }
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $file_id = $row['col_id'];
-      $file_name = $row['col_name'];
-      $file_title = $row['col_title'];
-      $file_description = $row['col_description'];
-      $File_tagged = $row['col_tagged_member'];
-      $file_share = $row['col_share'];
-      $file_event = $row['col_event'];
-      $file_location = $row['col_location'];
-      $file_date = $row['col_date'];
-      echo '
-        <li>
-          <div class="cp-box">
-            <a href="#"><img src="'.$foldername.'/'.$file_name.'" alt="'.$file_title.'"></a>
-            <div class="cp-text-box">
-              <h2><a href="#">'.$file_title.'</a></h2>
-              <strong class="title">'.$file_event.'</strong>
-              <div class="detail-row">
-                <ul>
-                  <button class="btn btn-view"><a href="'.$foldername.'/'.$file_name.'" download> save </a> <i class="fa fa-arrow-down"></i></button>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </li>
-      ';
     }
   }
 }
